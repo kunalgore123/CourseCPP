@@ -48,7 +48,7 @@ void StringManipulation()
 
 	if (name1.length() == name2.length())
 	{
-		cout << "They are same !!" << endl;
+		cout << "They are same length!!" << endl;
 
 	}
 	else if (name1.length() > name2.length())
@@ -479,6 +479,8 @@ string AppendZeroToDate(string date)
 	return result;
 }
 
+typedef int MyInt;
+
 int mainPalindromicDates() 
 {
 
@@ -490,6 +492,10 @@ int mainPalindromicDates()
 	string out_;
 	out_ = findNextPalinDate("30:03"/*input*/);
 	cout << out_;
+
+	MyInt i;
+	i = 9;
+	i = 6874654654;
 	return 0;
 }
 
@@ -503,4 +509,818 @@ void xlFileOperation()
 
 
 	MyExcelFile.close();
+}
+
+
+#pragma startup func1 
+#pragma exit func2 
+
+void func1() 
+{ 
+	printf("Inside func1()\n"); 
+} 
+
+void func2() 
+{ 
+	printf("Inside func2()\n"); 
+} 
+
+int preprocessorDirectivesDemo() 
+{ 
+	func1(); 
+	func2(); 
+	printf("Inside main()\n"); 
+
+	return 0; 
+} 
+
+
+struct  record
+{
+public:
+	char Name[20];
+	int UniqueID;
+	int Size;
+};
+
+std::vector< record> Records;
+void load()
+{
+	record copper1 = {"COPPER_1_F", 34001, 5};
+	Records.push_back(copper1);
+	record copper2 = {"COPPER_2_F", 25002, 50};
+	Records.push_back(copper2);
+	record silver1 = {"SILVER_1_F", 30100, 100};
+	Records.push_back(silver1);
+	record Gold2 = {"GOLD_2_F", 24216, 100};
+	Records.push_back(Gold2);
+	record copper10 = {"COPPER_1_O", 35000, 5};
+	Records.push_back(copper10);
+	record silver10 = {"SILVER_1_O", 32927, 100};
+	Records.push_back(silver10);
+	record bronz10 = {"BRONZE_1_O", 25125, 50};
+	Records.push_back(bronz10);
+	record gold1 = {"GOLD_1_F", 26584, 100};
+	Records.push_back(gold1);
+	record copper2F = {"COPPER_2_F", 34999, 5};
+	Records.push_back(copper2F);
+	record bronz1F = {"BRONZ_1_F", 25000, 50};
+	Records.push_back(bronz1F);
+	record Gold2O = {"GOLD_2_O", 28999, 100};
+	Records.push_back(Gold2O);
+	record Gold1 = {"GOLD_2_O", 27888, 100};
+	Records.push_back(Gold1);
+}
+
+void Display()
+{
+	cout << "Below Are the records :- " << endl;
+	cout << "Record Name \tUnique ID \tSize" << endl;
+	int Minimum =Records.at(0).UniqueID, Maximum = Records.at(0).UniqueID;
+	for(auto eachRecord:Records)
+	{
+		if (eachRecord.UniqueID <=  Minimum )
+			Minimum = eachRecord.UniqueID;
+		if (eachRecord.UniqueID >=  Maximum )
+			Maximum = eachRecord.UniqueID;
+		cout << eachRecord.Name << ",  \t" << eachRecord.UniqueID << ",\t\t" << eachRecord.Size << endl;
+	}
+	cout << "Minimum UniqueID  = " << Minimum << "  Maximum UniqueID = " << Maximum << endl;
+}
+
+bool  getRecord(int UID)
+{
+	for(auto eachRecord:Records)
+	{
+		if (eachRecord.UniqueID ==  UID )		
+		{
+			cout << eachRecord.Name << ", \t" << eachRecord.UniqueID << ", \t" << eachRecord.Size << endl;
+			return true;
+		}
+	}
+	cout << "Record not found for [Unique ID "  << UID << " ]" << endl;
+	return false;
+}
+
+int DolatAssignment()
+{
+	load();
+	string option;
+	int UniqueID;
+	Display();
+	do 
+	{
+		cout << "You want to find Record? (y/n)" << endl;	
+		cin >> option;
+		if (option == "Y" || option == "y" )
+		{		
+			cout << "enter UniqueID : " << endl;
+			cin >> UniqueID;
+			getRecord(UniqueID);
+		}
+		else if 	(option == "N" || option == "n" )
+		{
+			break;
+		}
+		else 
+		{
+			cout << "Please enter valid input Y or y or N or n" << endl;
+		}
+	}while(option == "Y" || option == "y");
+	cout << "Thanks have a nice day!!!" << endl;
+	return true;
+}
+
+void PointerArithmaticInterviewQuestion()
+{
+	int arr[4] = {5,3,2,4};
+	int *ptr = arr +1;
+	cout << *ptr +9 << endl;  // What it will print
+}
+
+//
+//		Considerations
+//		AACII charecters for alphabets and numbers
+//		A to Z --> 65 to 90
+//		a to z --> 97 to 122
+//		0 to 9 --> 58 to 57
+
+//////////////////////////////////////////////////////////////////////
+// Problem statement
+//		You are provided with a null terminating string. return the letter(a-z or A-Z) which occures most often. Count lowercase and uppercase as the same letter. 
+//		Retuen the uppercase version. If the string has no letters which occurs most offen.
+//		For Example:
+//		most_common("AAaaBBB") should return letter A
+//		most_common("12 34") should return the null charecter
+//		most_common("aaAABBBB") can return A or B
+//		
+////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+//Description : This fucntion will check whether perticular charecter is allready present in string or not
+//
+// param[in] vector <char > chars : vectors of charecters
+// param[in]  char charecter				: Charecter to be searched
+//	return	true		: if charecter is present
+//				false	: if charecter is not present
+////////////////////////////////////////////////////////
+bool IsCharecterExists(vector <char > chars, char charecter)
+{
+	for(char ch : chars){
+		if(ch == charecter)
+			return true;
+	}
+	return false;
+}
+
+//////////////////////////////////////////////////////
+//Description : This fucntion will check for most common charecter present in the string
+//
+// param[in] string str :String as input
+//	return	char : most comon charecter in string
+//				null	: if letter is not present in string
+//
+////////////////////////////////////////////////////////
+char most_common(string str)
+{
+	int StringLength = str.length();		// length  of string
+	vector <char > chars;						// vectors which will stores unique numbers
+	for (int i =0; i< StringLength;i++)// iterate over each string charecter
+	{
+		if (str[i] >= 'A' && str[i] <= 'Z' && !IsCharecterExists(chars, str[i]))  // check for Capital letter
+		{
+			chars.push_back(str[i]);
+		}
+		else if (str[i] >= 'a'&& int(str[i]) <= 'z')
+		{
+			if(!IsCharecterExists(chars, str[i]-32)) // treat small and capitle letter as same
+				chars.push_back(str[i]-32);
+		}
+	}
+	int maxCount = 0, count ;
+	char maxChar ='\0';
+
+	if (chars.begin() == chars.end() ){			// if string dont have English alphbets then reuren null
+		return '\0';
+	}
+	else{
+		for(char ch : chars){						// Iterate over each unique charecter present in string
+			count = 0;
+			for (int i =0; i< StringLength;i++){	// copare each unique charececter	 with string
+				if (str[i] == ch || str[i]-32 == ch)
+					count++;
+			}
+			if(count >= maxCount){				// Compare for maximum number of charecters
+				maxCount = count;
+				maxChar = ch;
+			}
+		}	
+	}
+	return maxChar;
+}
+//////////////////////////////////////////////////////
+//Description : This fucntion is main function to check string sample and finding most common charecter in string
+//							this function covers all sample test cases
+//	return	void
+////////////////////////////////////////////////////////
+void FindStringOccurence()
+{
+	cout << "Sample testcases \n" ;
+	cout << "String\t\t" <<  "most common charecter \n";
+
+	string str = "AAaaBBB";
+	cout << str << "\t\t"<< most_common(str) <<endl;
+	str = "12 34";
+	cout << str << "\t\t"<< most_common(str) <<endl;
+	str = "aaAABBBB";
+	cout << str << "\t"<< most_common(str) <<endl;
+
+}
+
+
+vector <bool> decToBinary(uint16_t num){
+	vector <bool> BinaryNum;
+	int operationStatus;
+	for (int i = 15 ; i >= 0; i--)
+	{
+		operationStatus = num >> i;	// right shift i times 
+		if (operationStatus & 1)		//digit found to be 1
+			BinaryNum.push_back(1);
+		else										//digit found to be 0
+			BinaryNum.push_back(0);
+	}
+	return BinaryNum;
+}
+
+uint16_t  getHoures(vector <bool> binaryNumber)
+{
+	uint16_t num = 0;
+
+	return num;
+
+}
+///////////////////////////////////////////////////////////////////////////
+//		Problem statement
+//		Sixteen bits are used to encode a time (hours and minutes) in the following way
+//		the 4 least significant bits are the units digit of the number of minutes.
+//		the next 3 bits are the tens digit of the number of minutes.
+//		the next 4 bits are the units digit of the number of houres.
+//		the next 2 bits are the tens digit of the number of houres.
+//		the most significant 3 bits (the "check bits") must be 1, then 0, then 1.
+//		Comlete the "extract" function, which has the following behaviour.
+//		if the check bits are incorrect, return 0 and do nothing.
+//		if the check bits are correct, write the number of houres and minutes and return 1.
+//		Assume that the caller has allocated "houres" and "minutes" appropriately.
+
+//		bits representation
+//		GFEDDCCC CBBBAAAA		--> Binary form
+//		(AAAA) + 10*(BBB)			--> miuntes
+//		(CCCC) + 10*(DD)			--> hour
+//		E and G --> must be 1
+//		F --> must be 0
+///////////////////////////////////////////////////////////////////////////
+int extract(uint16_t data, int *houres, int *minutes){
+	int p1, p2, p3;
+
+	cout << (1^3) ;
+	int num = 65000;
+	cout << "decimal of" << num << " is " ;
+	vector <bool > binaryNumber = decToBinary(num);
+	for (bool b : binaryNumber)
+		cout << b;
+	if (binaryNumber[0] == 1 && binaryNumber[1] == 0 && binaryNumber[2] == 1){
+
+		cout << "number of houres : " << getHoures(binaryNumber) << endl;
+
+	}
+	else 
+		return 0;
+
+	return 1;
+}
+
+void bitManipulation()
+{
+	int houres = 2;
+	int minutes = 15;
+	extract(35, &houres, &minutes);
+
+}
+
+class SizeA 
+{
+	char c;
+	int a;
+	double d;
+	char b; 	
+
+};
+
+class SizeB : public SizeA
+{
+	char c;
+	char b;
+};
+
+//void fun (int a, int b){
+//
+//}
+void fun (int *a, int *b){
+
+}
+void fun (int &a, int &b){
+
+}
+
+void SizeOfOperatorDemo()
+{
+	int a =5;
+	int b = 6;
+	//fun(5,4);
+	fun(&a, &b);
+
+	SizeB ObjB;
+	SizeA ObjA;
+	cout << "Size of Class SizeB " << sizeof(SizeB) << endl;
+	cout << "Size of object of class SizeB " << sizeof(ObjB) << endl;
+
+	cout << "Size of Class SizeA " << sizeof(SizeA) << endl;
+	cout << "Size of object of class SizeA " << sizeof(ObjA) << endl;
+
+	//int a =10;
+	int *ptr = &a;
+	cout << "Size of int pointer " << sizeof(int *) << endl;
+	cout << "Size of int  " << sizeof(int ) << endl;
+	cout << "Size of int double " << sizeof(double) << endl;
+	cout << "Size of int char " << sizeof(char) << endl;
+}
+
+class MyClass {
+	int a, b;
+
+public:
+	MyClass(int i)
+	{
+		cout << "parameterized Constructor called... " << endl;
+		this->a = i;
+		this->b = i;
+	}
+	MyClass& operator= (MyClass const &obj)
+	{
+		cout << "Copy Constructor called... " << endl;
+		this->a = obj.a;
+		this->b = obj.b;
+
+		return  *this;
+	}
+	void display()
+	{
+		std::cout << " a = " << this->a << " b = " << this->b << "\n";
+	}
+};
+
+void ConversionConsructure()
+{
+	MyClass object(10);
+
+	object.display();
+
+	// Single parameter conversion constructor is invoked.
+	object = 20;
+
+	object.display();
+
+	MyClass Obj = object;	
+	object.display();
+
+	Obj = 30;	
+	object.display();
+}
+/**
+* Definition for singly-linked list.
+* 
+* 
+* 
+* 
+* 
+* 
+* };
+*/
+
+struct ListNode {
+	int val;
+	ListNode *next;
+	ListNode() : val(0), next(nullptr) {}
+	ListNode(int x) : val(x), next(nullptr) {}
+	ListNode(int x, ListNode *next) : val(x), next(next) {}
+};
+
+ListNode* addTwoNumbersOld(ListNode* l1, ListNode* l2) 
+{
+	auto countl1 = 0, countl2 = 0;
+	unsigned long long suml1= 0,suml2 =0;
+	//double suml1= 0,suml2 =0;
+	ListNode * temp = l1;
+	while(temp != nullptr )
+	{
+		suml1 = suml1 + temp->val *pow(10,countl1);
+		countl1 ++;			
+		temp = temp->next;
+	}
+	temp = l2;
+	while(temp != nullptr )
+	{
+		suml2 = suml2 + temp->val *pow(10,countl2);
+		countl2 ++;			
+		temp = temp->next;
+	}
+	auto result = suml1 + suml2;
+	//ListNode *resultNode = new ListNode((double)((result)%(10)));
+	ListNode *resultNode = new ListNode((result)%(10));
+	result = result/10;
+
+	temp = resultNode;
+
+	while(result)
+	{
+		resultNode->next =new ListNode(result %10);
+		resultNode = resultNode->next;
+
+		result = result/10;
+	}
+
+	return temp;
+}
+
+ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) 
+{
+	ListNode *temp = nullptr;
+	if (l1 != nullptr || l2 != nullptr)
+		temp = new ListNode();
+	ListNode *original = temp ;
+	int carry = 0, borrow = 0;
+	while(l1 != nullptr || l2 != nullptr)	// we have to sum both the list thats why checking when both are null then only goes out of loop
+	{
+		if (l1 == nullptr)
+			l1 = new ListNode();
+		if (l2 == nullptr)
+			l2 = new ListNode();
+		if (l1->val + l2->val + carry > 9)	// check if sum becomes two digit
+		{
+			borrow = (l1->val + l2->val + carry) % 10;			
+			carry = (l1->val + l2->val + carry) / 10;	// carry for future
+			temp->val = borrow;					// update borrow
+		}
+		else 
+		{
+			temp->val = l1->val + l2->val + carry;
+			carry = 0;
+		}		
+		// pont to next node
+		l1 = l1->next;
+		l2 = l2->next;
+		if (l1 != nullptr || l2 != nullptr)
+		{
+			temp->next = new ListNode();
+			temp = temp->next ;
+		}
+	}
+	if (carry != 0)
+	{
+		temp->next = new ListNode(carry);
+	}
+	return original;
+}
+
+void SingleLinkedList()
+{
+	int a = 10;
+	ListNode *l1 = new ListNode(4);
+	l1->next = new ListNode(3);
+
+	ListNode *l2 = new ListNode(9);
+	l2->next = new ListNode(8);
+	l2->next->next = new ListNode(5);
+	/*l2->next->next->next = new ListNode(9);
+	l2->next->next->next->next  = new ListNode(9);
+	l2->next->next->next->next->next = new ListNode(9);
+	l2->next->next->next->next->next->next  = new ListNode(9);
+	l2->next->next->next->next->next->next->next  = new ListNode(9);
+	l2->next->next->next->next->next->next->next->next  = new ListNode(9);
+	l2->next->next->next->next->next->next->next->next->next  = new ListNode(9);*/
+	addTwoNumbers(l1,l2);
+}
+
+class A{
+public :
+	virtual void fun1() {cout << "Welldone... " << endl;}
+	void fun2(){cout << "fun2() in A" << endl;}
+};
+
+class B: public A{
+public :
+	void Display(){cout << "Welldone... " << endl;}
+	void fun2(){cout << "fun2() in B" << endl;}
+};
+
+void InheritanceExample(){
+	A *a = new B();
+	a->fun2();
+
+	B *b = dynamic_cast<B*>(new A());
+
+}
+
+void DanglingPointer(){
+	int a = 10;
+	int *ptr = new int(a);
+	cout << "before Delete ..."<< endl;
+	cout << ptr <<endl;
+	cout << a << endl;
+	cout << &a << endl;
+
+	delete ptr;
+	cout << "after Delete ..."<< endl;
+	cout << ptr <<endl;
+	cout << a << endl;
+	cout << &a << endl;
+}
+
+template <typename T1, typename T2>
+T1 AddWithTemplate(T1 a, T2 b)
+{
+	return a +b;
+}
+
+void TemplateDemo()
+{
+	cout << "Addition is " << AddWithTemplate(4.5,5) << endl;
+	//const type_info& t1 = typeid(4);
+	cout << "4 is of :"<<  typeid(4).name() << endl;
+	B a;
+	cout << "a is of :"<<  typeid(a).name() << endl;
+}
+
+class Car{
+	int model;
+public:
+	void SetModel(int model){		
+		this->model = model;
+	}
+	void PrintModel()	{
+		cout << "Model is " << model << endl;
+	}
+};
+void ThisDemo(){
+	Car obj;
+	obj.SetModel(5);
+	obj.PrintModel();
+	//obj.model;
+}
+
+class pureVirtual{
+public:
+	virtual void fun () = 0 ;
+};
+
+class derived : public pureVirtual{
+public:
+	virtual void fun() = 0;    
+};
+
+class child : public derived{
+public:
+	void fun(){
+		cout << "I am here..." << endl;
+	}
+};
+
+int inheritanceConcept() {
+	// your code goes here
+	child c;	
+	c.fun();
+	return 0;
+}
+
+class ExceptionDemo {
+public:
+	ExceptionDemo() {
+		std::cout << "Contructor called " << std::endl;
+		//throw 22;
+	}
+	~ExceptionDemo() {
+		std::cout << "Distructor called " << std::endl;
+		//throw 22;
+		try{
+			throw 22;
+		}
+		catch(int a){
+			cout << a;
+		}
+	}
+};
+
+
+int ExceptionQuestion() {
+	try 
+	{
+		ExceptionDemo a;
+		//ExceptionDemo *ptr = new ExceptionDemo();
+		throw 32;
+		int k = 10;
+		int &b = k;
+		//delete ptr;
+
+	} catch(int a) {
+		std::cout << a;
+	}
+}
+class CopyClass
+{
+public:
+	int myVariable;
+	int *ptr;
+	CopyClass(){
+		myVariable = 0;
+		ptr = new int();
+		*ptr  = myVariable + 10;
+		cout<< "Default contructor called... " << endl;}
+	CopyClass(int num){
+		myVariable = num;
+		ptr = new int();
+		*ptr  = myVariable + 10;
+		cout<< "Parameterized contructor called... " << endl;}
+	~CopyClass(){		
+		delete ptr;
+		cout << "Destructor called...  " << endl;}
+	//copy contructor
+	CopyClass(const CopyClass & obj){
+		myVariable = obj.myVariable;
+		ptr = new int();
+		*ptr  = myVariable + 20;
+		cout << "copy Contructor called... " << endl;
+	}
+	// assignment operator overider
+	CopyClass&  operator= (const CopyClass &obj){
+		if (this != &obj){
+			this->myVariable = obj.myVariable;
+			*(this->ptr) = *(obj.ptr) + 30; 
+			cout << "Assignment operator copy Contructor called... " << endl;
+			return *this;
+		}
+	}
+	// + operator overider
+	CopyClass  operator+ (const int num){	
+		this->myVariable += num;
+		cout << "+ operator Overload called... " << endl;
+		return *this;
+
+	}
+};
+
+void CopyContructorDemo()
+{
+	CopyClass obj(10);
+	{
+		CopyClass obj1 = obj;
+	}
+
+	CopyClass obj2;
+	obj2 = obj;
+	obj2 = obj + 2;
+
+} 
+class SmartClass
+{
+public:
+	SmartClass(){cout<< "Default contructor called... " << endl;}
+	~SmartClass(){cout << "Destructor called...  " << endl;}
+	int *ptr;
+	void Print(){cout<< "Hello" << endl;}
+
+};
+
+void SmartPointerDemo(){
+	{
+		unique_ptr<SmartClass > ptr ( new SmartClass());
+		//unique_ptr<SmartClass > ptr =  std::make_unique<SmartClass>();
+		unique_ptr<SmartClass > ptr1 ( new SmartClass());
+		//ptr1= ptr;
+		ptr1 = move(ptr);
+		ptr->Print();
+		ptr1->Print();
+	}
+	{
+		shared_ptr<SmartClass> ShrPtr (new SmartClass());
+		shared_ptr<SmartClass> ShrPtr1 (new SmartClass());
+		ShrPtr1 = ShrPtr;
+	}
+}
+
+void ArithmaticPointerOperationsDemo(){
+	const char *arr[]={"c","c++","java","VBA"};
+	const char *(*ptr)[4]=&arr;
+	cout<<++(*ptr)[2]<<endl;
+
+	int x=5;
+	int y=++x*x--;
+	cout<<x<<" "<<y<<endl;
+	y=++x*++x;
+	cout<<x<<" "<<y<<endl;
+	int z=++y + --y;
+	cout<<y<<" "<<z<<endl;
+
+}
+
+void ExtractSubstring(){
+
+	/*while(AfxExtractSubString())
+	{
+
+	}*/
+}
+
+//2
+//4
+//8
+//16
+//32
+// 
+//8 test cases are passed out of 10
+//
+//BETACan’t read the text? 
+//Switch
+// theme
+//
+//1. Coding - Chocolate Puzzle - CPP
+//A teacher decided to motivate all her students for their grades by giving them chocolates. On the first day, she gave a certain number of chocolates and on the next day, she gave twice the number of chocolates she gave on the previous day and she doubled the number of chocolates every day. On the last day, she distributed all the chocolates she bought. Determine on which day the teacher distributed exactly (1/n)th of the total number of chocolates given the number of chocolates distributed on the first day, the day on which all the chocolates are completely distributed and n. If 1/n gives a floating point consider the rounded value of it.
+//
+// 
+//Function Description
+//
+// 
+//
+//Complete the function appreciation in the editor below. The function appreciation has the following parameter(s):
+//
+//An integer denoting the number of chocolates distributed initially (on the first day).
+//An integer denoting the day on which all the chocolates are completely distributed.
+//An integer n denoting the part of the total number of chocolates.
+//Write the code to determine the day on which the teacher distributed exactly (1/n)th of the total number of chocolates given the number of chocolates distributed on the first day, the day on which all the chocolates are completely distributed and n. The function is expected to return an integer.
+//
+// 
+//
+//Input Format For Custom Testing
+//Sample Case 0
+//Sample Input For Custom Testing
+//
+//2
+//5
+//2
+//Sample Output
+//
+//5
+//Explanation
+//
+//In this case, the number of chocolates distributed initially (on the first day) is 2, the number of chocolates distributed on second day is 2*2 = 4, the number of chocolates distributed on third day is 4*2 = 8, the number of chocolates distributed on fourth day is 8*2 = 16 and at last the number of chocolates distributed on fifth day is 16*2 = 32.
+//
+//So, the total number of chocolates is 62 (2+4+8+16+32) and 1/2th of total chocolates is 31 (62/2 = 31). Finally the teacher completed the distribution of 31 chocolates on the 5th day.
+//
+//Sample Case 1
+//Sample Input For Custom Testing
+//
+//6
+//3
+//5
+//Sample Output
+//
+//2
+//Explanation
+//
+//In this case, the number of chocolates distributed initially (on the first day) is 6, the number of chocolates distributed on second day is 6*2 = 12 and at last the number of chocolates distributed on third day is 12*2 = 24. So, the total number of chocolates is 42 (6+12+24) and 1/5th of total chocolates is 8 (42/5 = 8.4 take as 8). Finally the teacher completed the distribution of 8 chocolates on the 2th day.
+int appreciation(int initial_chocolates, int last_day, int n) {    
+	int sum = initial_chocolates;
+	int commulative_sum = sum;
+	int day_counter = last_day;
+
+	while(day_counter != 1){
+		sum = sum * 2;  
+		commulative_sum = commulative_sum + sum;
+		day_counter--;
+	}
+	int result_sum = (commulative_sum/n);
+
+	sum = initial_chocolates;
+	commulative_sum = sum;
+	day_counter = last_day;
+	int result = 1;
+
+	while(day_counter != 1){
+		sum = sum * 2;  
+		commulative_sum = commulative_sum + sum;
+		result++;   
+		if (result_sum <= commulative_sum)			
+			break;	
+
+		day_counter--;		 
+	}
+	return result;
 }

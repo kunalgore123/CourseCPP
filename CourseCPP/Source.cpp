@@ -11,6 +11,26 @@ int main()
 	//mainForHotel();
 	// mainCppExceptionHandling();
 	//mainMalloc();
-	mainPalindromicDates();
+	//mainPalindromicDates();
+	 //preprocessorDirectivesDemo() ;
+	 //DolatAssignment();
+	//PointerArithmaticInterviewQuestion();
+	//FindStringOccurence();
+	// bitManipulation();
+	//SizeOfOperatorDemo();
+	//ConversionConsructure();
+	//SingleLinkedList();
+	//InheritanceExample();
+	//DanglingPointer();
+	//TemplateDemo();
+	//ThisDemo();
+	//inheritanceConcept() ;
+	//ExceptionQuestion();
+	//CopyContructorDemo();
+	//SmartPointerDemo();
+	//ArithmaticPointerOperationsDemo();
+	//ExtractSubstring();
+
+	appreciation( 2,  5,  2);
 	return 0;
 }
