@@ -66,3 +66,8 @@ void SmartPointerDemo();
 void ArithmaticPointerOperationsDemo();
 void ExtractSubstring();
 int appreciation(int initial_chocolates, int last_day, int n);
+int STLDemo();
+//int codePractice();
+
+int reverseNumber();
+void virtualDestructor();

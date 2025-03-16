@@ -1020,12 +1020,13 @@ class B: public A{
 public :
 	void Display(){cout << "Welldone... " << endl;}
 	void fun2(){cout << "fun2() in B" << endl;}
+	//int fun1() {cout << "Welldone... " << endl; return 1;} // we can not have different return type for overriden function
 };
 
 void InheritanceExample(){
 	A *a = new B();
 	a->fun2();
-
+	//a->fun1();
 	B *b = dynamic_cast<B*>(new A());
 
 }
@@ -1046,14 +1047,22 @@ void DanglingPointer(){
 }
 
 template <typename T1, typename T2>
+//template <typename T1, typename T2, typemane T3>
 T1 AddWithTemplate(T1 a, T2 b)
+//T3 AddWithTemplate(T1 a, T2 b)
 {
+	cout << "a is of :"<<  typeid(a).name() << endl;
+	cout << "b is of :"<<  typeid(b).name() << endl;
 	return a +b;
 }
 
 void TemplateDemo()
 {
 	cout << "Addition is " << AddWithTemplate(4.5,5) << endl;
+	cout << "Addition is " << AddWithTemplate(4,5.5) << endl;
+
+	//cout << "Addition of chars " << AddWithTemplate('A','B');
+
 	//const type_info& t1 = typeid(4);
 	cout << "4 is of :"<<  typeid(4).name() << endl;
 	B a;
@@ -1194,7 +1203,7 @@ class SmartClass
 public:
 	SmartClass(){cout<< "Default contructor called... " << endl;}
 	~SmartClass(){cout << "Destructor called...  " << endl;}
-	int *ptr;
+	//int *ptr;
 	void Print(){cout<< "Hello" << endl;}
 
 };
@@ -1213,6 +1222,8 @@ void SmartPointerDemo(){
 		shared_ptr<SmartClass> ShrPtr (new SmartClass());
 		shared_ptr<SmartClass> ShrPtr1 (new SmartClass());
 		ShrPtr1 = ShrPtr;
+		ShrPtr->Print();
+		ShrPtr1->Print();
 	}
 }
 
@@ -1323,4 +1334,119 @@ int appreciation(int initial_chocolates, int last_day, int n) {
 		day_counter--;		 
 	}
 	return result;
+}
+
+template <class T> class vector_inserter{
+public:
+    std::vector<T>& v;
+    vector_inserter(std::vector<T>& v):v(v){}
+    vector_inserter& operator,(const T& val){v.push_back(val);return *this;}
+};
+template <class T> vector_inserter<T> operator+=(std::vector<T>& v,const T& x){
+    return vector_inserter<T>(v),x;
+}
+
+// demo on all STL Concepts and there usage
+// 1. initialization ways
+// 2. adding element dynamically
+// 3. usange in loops (for, While,....)
+// 4. usage, getting element from perticular position 
+// 5. prebuild sorting techniques possible if any
+// 6. iterator usage
+int STLDemo(){
+
+	vector <int> myVector ;//= {3, 4, 5, 6}; // This is not possible before
+	
+	myVector += 1,2,3,4;// using overloading for adding elements via initializer list
+
+	// initializing vector using loop
+	for (int i = 0; i < 5 ; i++){
+		myVector.push_back(i);
+	}
+
+	// insert element at begining
+	myVector.insert(myVector.begin(),0);
+	// insert element at end
+	myVector.insert(myVector.end(), 99);
+
+	cout << "Below are the vector elements : (using vector size) " << endl;
+	for (int i = 0; i < myVector.size() ; i ++){
+		cout << myVector[i] << endl;
+	}
+	
+	vector <int> :: iterator itrMyVector;
+	cout << "below are the vector elements : (using iterators) " << endl;
+	for (itrMyVector = myVector.begin(); itrMyVector < myVector.end(); itrMyVector++){
+		cout << *itrMyVector << endl;  
+	}
+
+	 map<string,int> Map;
+    map<string,int>::iterator itrMap = Map.begin();
+	Map.insert(pair<string,int>("ABC",1));
+	Map.insert(pair<string,int>("DEF",2));
+	Map.insert(pair<string,int>("GHI",3));
+
+	
+   for (auto itr = Map.begin(); itr != Map.end(); itr++){
+       cout << itr->first << " " << itr->second << endl;               
+   }
+
+    /*strcpy(itrMap->first, "ABC");
+    itrMap->second = 1;*/
+
+	return 0;
+}
+
+//
+//int codePractice(){
+//	int var = 10;//	int *ptr = &var;//	int var2 = 30;//	ptr = &var2;//	int ** ptr1 ;//	int * ptr2 = &var;//	ptr1 = &ptr2;//	// What will be output of below//	cout << **ptr1 << endl;//	cout << *ptr2 << endl;//	cout << *ptr << endl;//
+//	return 0;
+//}
+
+int reverseNumber()
+{
+	int num;
+	cout << "Enter Number to Reverse:- " ;
+	cin >> num;
+	int sum = 0;
+	int counter = 0;
+	while(num /10 != 0){
+		sum = pow(10,counter)* sum + (num % 10);
+		num = num /10;
+		counter++;
+	}
+	cout << endl << "reverse Number is " << sum << endl;
+
+	return 1;
+}
+
+
+class Parent {
+public:
+	void run() {}
+	Parent() {
+	
+	}
+	~Parent() {
+
+
+	}
+};
+class Child :public Parent{
+public:
+	void run() {};
+	Child* ptr;//= new int();
+	Child() {
+		ptr = this;
+	}
+	~Child() {
+		delete ptr;
+		ptr = nullptr;
+	}
+};
+void virtualDestructor() {
+	{
+		Parent* bPtr = new Child();
+	}
+
 }

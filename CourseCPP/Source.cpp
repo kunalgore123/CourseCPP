@@ -31,6 +31,12 @@ int main()
 	//ArithmaticPointerOperationsDemo();
 	//ExtractSubstring();
 
-	appreciation( 2,  5,  2);
+	//appreciation( 2,  5,  2);
+
+	//STLDemo();
+
+	//codePractice();
+	//reverseNumber();
+	virtualDestructor();
 	return 0;
 }
